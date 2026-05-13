@@ -1,20 +1,45 @@
+#include <clocale>
 #include <iostream>
-#include <string>
-#include "engine/Levenshtein.hpp" // zakladamy, ze zostawiamy tu funkcje obliczOdleglosc
+#include <locale>
+#ifdef _WIN32
+#include <windows.h>
+#endif
+#include "ui/menu.hpp"
+#include "storage/file_manager.hpp"
 
-using namespace std;
+static void ustawLocalePolskie() {
+    std::setlocale(LC_ALL, "");
 
-int main(int argc, char* argv[]) {
-    if (argc != 3) {
-        return 1; 
+    try {
+        std::locale::global(std::locale("pl_PL.UTF-8"));
+    } catch (...) {
+        try {
+            std::locale::global(std::locale(""));
+        } catch (...) {
+            // jeśli lokalizacja nie jest dostępna, kontynuuj z domyślną
+        }
     }
 
-    string poprawna = argv[1];
-    string wpisana = argv[2];
+    std::cout.imbue(std::locale());
+    std::cin.imbue(std::locale());
+    std::wcout.imbue(std::locale());
+    std::wcin.imbue(std::locale());
 
-    int dystans = obliczOdleglosc(poprawna, wpisana);
-    
-    cout << dystans << endl;
+#ifdef _WIN32
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
+#endif
+}
 
+int main() {
+    ustawLocalePolskie();
+    auto fiszki = loadDeck();
+    int configMode = loadConfig();
+    StudyMode tryb = configMode == 1 ? StudyMode::AUTO : StudyMode::MANUAL;
+
+    uruchomMenu(fiszki, tryb);
+    saveDeck(fiszki);
+
+    std::cout << "Koniec programu. Deck zapisany do deck.txt\n";
     return 0;
 }

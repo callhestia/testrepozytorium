@@ -9,9 +9,13 @@ struct SmResponse {
 };
 
 struct Flashcard {
-    int id;
+    int id = 0;
     std::string question;
     std::string answer;
-    int combo;
-    double easeFactor;
+    int combo = 0;
+    double easeFactor = 2.5;
+    long nextReview = 0;
+    float difficulty = 2.5f;
+    int interval = 1;
+    int streak = 0;
 };

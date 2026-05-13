@@ -1,15 +1,7 @@
+// menu.hpp
 #pragma once
+#include "../storage/Flashcard.hpp"
+#include <vector>
 
-#include "../models/flashcard.hpp"
-#include <string>
-
-using namespace std;
-
-// Zwraca aktualny tryb nauki
-StudyMode pobierzTrybNauki();
-
-// Rotuje tryb: MANUAL -> AUTO -> MANUAL -> ...
-void zmienTrybNauki();
-
-// Zwraca czytelną nazwę podanego trybu ("MANUAL" lub "AUTO")
-string nazwaTrybu(StudyMode tryb);
+// Główna pętla interfejsu — wywołaj z main.cpp
+void uruchomMenu(std::vector<Flashcard>& fiszki, StudyMode& trybNauki);

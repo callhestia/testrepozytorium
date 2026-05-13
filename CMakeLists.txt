@@ -8,7 +8,7 @@ add_executable(wkuwator
     src/main.cpp
     src/engine/engine.cpp
     src/engine/sm2.cpp
-    src/engine/Ebbinghaus.cpp
+    src/storage/Flashcard.hpp
     src/engine/Levenshtein.cpp
     src/ui/menu.cpp
     src/storage/file_manager.cpp

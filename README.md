@@ -15,3 +15,9 @@ Run:
 ```bash
 ./wkuwator
 ```
+
+Windows:
+
+```bat
+build.bat
+```
